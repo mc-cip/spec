@@ -166,6 +166,7 @@ Response:
 		}
 	],
 	"modloader": "fabric", // WILL PROBABLY CHANGE THIS
+	"minecraft": "1.7.10", // WILL PROBABLY CHANGE THIS
 	"equivalent_versions": [{"name": "1.0.1-forge"}]
 }
 ```
