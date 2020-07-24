@@ -136,6 +136,9 @@ Note: one might think that versions are immutable. In practice, sometimes they a
 
 Versions don't have UUIDs, because there's no need to combine information from different servers.
 
+The `last_updated` value is the same for all API requests associated with the same project (e.g. `versions` and `description`). It has to be updated if the mod is updated, even if the rest of the data in the response did not change.
+
+
 # Project version files (`$BASE/project/$PROJECT/version/$VERSION/v1`)
 
 Query:
@@ -202,6 +205,8 @@ Response:
 
 ```
 {
+	"last_updated": "1",
+	
 	"display_name": "Example Project 1",
 	
 	// Might be displayed in search results for example.
@@ -262,6 +267,7 @@ Shortcuts MAY also be based on URL; a server may show a "GitHub" shortcut based 
 All links should be displayed *somewhere*, regardless of `rel`. That is what `display_name` is for.  
 `rel` is optional; if not specified, it's the same as an empty list. If there's only one item in `rel`, it can be specified as a single string (without a list).
 
+The `last_updated` value is the same for all API requests associated with the same project (e.g. `versions` and `description`). It has to be updated if the mod is updated, even if the rest of the data in the response did not change.
 
 # other stuff
 
