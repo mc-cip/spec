@@ -1,0 +1,104 @@
+{
+  "id": "dfa65597-eb1b-4127-9200-e53cc41d2d93",
+  "name": "Example Project",
+  "summary": "This is a short, one-sentence summary of the Example Project.",
+  "icon": "https://example.com/example.png",
+  "description": "This is a long description describing the project. <b>HTML</b> and **Markdown** can optionally be used.",
+  "gallery": [
+    {
+      "type": "video",
+      "embed": "https://youtube.com/embed...",
+      "caption": "This is an example embed."
+    },
+    {
+      "type": "video",
+      "src": "https://example.com/video.mp4",
+      "caption": "This is an example direct video link."
+    },
+    {
+      "type": "image",
+      "src": "https://example.com/image.png",
+      "caption": "This is an example image."
+    }
+  ],
+  "authors": [
+    {
+      "name": "MCIP Contributors",
+      "uri": "https://github.com/mc-cip"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Example Category",
+      "uri": "https://example.com/browse?category=example",
+      "icon": "https://example.com/example-category.png"
+    }
+  ],
+  "license": {
+    "name": "MIT",
+    "uri": "https://opensource.org/licenses/MIT",
+    "modpackLicense": "alwaysAllow"
+  },
+  "links": [
+    {
+      "rel": [
+        "x-discord",
+        "community"
+      ],
+      "name": "Project Discord",
+      "uri": "https://discord.gg/example"
+    },
+    {
+      "rel": "scm",
+      "name": "Project Source",
+      "uri": "https://github.com/mc-cip/exampleproject"
+    }
+  ],
+  "successor": "successor-mod",
+  "predecessor": "predecessor-mod",
+  "versions": [
+    {
+      "id": "1.0.0",
+      "name": "Release 1.0.0",
+      "semver": "1.0.0",
+      "releaseDate": "2020-04-08T12:00:00",
+      "changelog": "Example changelog goes here...",
+      "minecraftVersions": [
+        "1.16.1",
+        "1.16"
+      ],
+      "dependencies": [
+        {
+          "type": "asset",
+          "src": "example-host",
+          "id": "example-library-mod",
+          "required": true,
+          "version": [
+            "1.0.0",
+            "1.0.1"
+          ]
+        },
+        {
+          "type": "framework",
+          "id": "fabric-loader",
+          "version": ">= 0.6.1.45"
+        }
+      ],
+      "files": [
+        {
+          "name": "1.0.0-fabric.jar",
+          "sha256": "< sum goes here >",
+          "frameworks": [
+            "fabric-loader"
+          ],
+          "installationMethod": "modsDirectory",
+          "download": [
+            {
+              "uri": "https://example.com/download/1.0.0-fabric.jar"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
