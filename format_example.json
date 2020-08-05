@@ -1,10 +1,14 @@
 {
-  "id": "dfa65597-eb1b-4127-9200-e53cc41d2d93",
+  "id": "111111-111111-111111-111111-111111",
   "name": "Example Project",
   "summary": "This is a short, one-sentence summary of the Example Project.",
-  "icon": "https://example.com/example.png",
-  "description": "This is a long description describing the project. <b>HTML</b> and **Markdown** can optionally be used.",
-  "gallery": [
+  "description": "This is a long description describing the project. <b>HTML</b> can optionally be used.",
+  "media": [
+    {
+      "rel": "icon",
+      "uri": "https://example.com/example.png",
+      "sha256": "< sum goes here >"
+    },
     {
       "type": "video",
       "embed": "https://youtube.com/embed...",
@@ -12,8 +16,9 @@
     },
     {
       "type": "video",
-      "src": "https://example.com/video.mp4",
-      "caption": "This is an example direct video link."
+      "src": "https://example.com/video.webm",
+      "caption": "This is an example direct video link.",
+      "sha256": "< sum goes here >"
     },
     {
       "type": "image",
@@ -23,8 +28,16 @@
   ],
   "authors": [
     {
+      "team": true,
+      "id": "111111-111111-111111-111111-111111",
       "name": "MCIP Contributors",
-      "uri": "https://github.com/mc-cip"
+      "members": [
+        {
+          "id": "111111-111111-111111-111111-111111",
+          "name": "Example MCIP Member",
+          "uri": "https://example.com/example-webpage"
+        }
+      ]
     }
   ],
   "categories": [
@@ -35,9 +48,9 @@
     }
   ],
   "license": {
-    "name": "MIT",
+    "spdx": "MIT",
     "uri": "https://opensource.org/licenses/MIT",
-    "modpackLicense": "alwaysAllow"
+    "modpackUsage": "alwaysAllow"
   },
   "links": [
     {
@@ -54,7 +67,10 @@
       "uri": "https://github.com/mc-cip/exampleproject"
     }
   ],
-  "successor": "successor-mod",
+  "successor": [
+    "successor-mod",
+    "other-successor-mod"
+  ],
   "predecessor": "predecessor-mod",
   "versions": [
     {
@@ -77,25 +93,40 @@
             "1.0.0",
             "1.0.1"
           ]
-        },
-        {
-          "type": "framework",
-          "id": "fabric-loader",
-          "version": ">= 0.6.1.45"
         }
       ],
       "files": [
         {
+          "rel": "primary",
           "name": "1.0.0-fabric.jar",
           "sha256": "< sum goes here >",
-          "frameworks": [
-            "fabric-loader"
+          "dependencies": [
+            {
+              "type": "framework",
+              "id": "fabric-loader",
+              "version": ">= 0.6.1.45"
+            }
+          ],
+          "installationMethod": "placeInDirectory",
+          "directory": "mods",
+          "downloads": [
+            "https://example.com/download/1.0.0-fabric.jar"
+          ]
+        },
+        {
+          "rel": "primary",
+          "name": "1.0.0-forge.jar",
+          "sha256": "< sum goes here >",
+          "dependencies": [
+            {
+              "type": "framework",
+              "id": "forge",
+              "version": ">= 32.0.106"
+            }
           ],
           "installationMethod": "modsDirectory",
-          "download": [
-            {
-              "uri": "https://example.com/download/1.0.0-fabric.jar"
-            }
+          "downloads": [
+            "https://example.com/download/1.0.0-forge.jar"
           ]
         }
       ]
