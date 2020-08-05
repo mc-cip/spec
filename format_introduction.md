@@ -9,6 +9,8 @@ The Format stores metadata about Projects such as their description, authors, do
 - Encourage open discussion and debate about the properties and metadata stored in the format.
 - Make Minecraft Project distribution open and allow easy interoperability between Hosts.
 
+---
+
 ## Users of the Format
 
 The MCIP format is designed to be used by anyone who works with Minecraft assets. Examples include:
@@ -17,31 +19,52 @@ The MCIP format is designed to be used by anyone who works with Minecraft assets
 - Launchers, such as MultiMC and GDLauncher
 - Mod Developers, who can provide metadata about their mods
 
+---
+
 ## Format Documentation
 
 Documentation on the Format specification is provided in **format_spec.md**.
+
+---
 
 ## Implementing the Format
 
 - Hosts that provide an API are encouraged to allow API users to request data be returned in the MCIP Format.
 - Launcher developers are encouraged to allow browsing and installing Projects that are served by Hosts providing MCIP Format-compliant data.
 
-### API and Field Modularization Advice
+---
 
-The MCIP format includes many fields. It would be inefficient for Hosts and API providers to return all information about a Project at once. Because of this, it's recommended to follow these guidelines:
+## MCIP Standardized API
 
-**Separate Project information as needed**
+The MCIP Standardized API is a work-in-progress API that allows hosts to synchronize their databases between each other. It also makes implementing new hosts easier for launcher developers, and it allows launchers to download content from hosts that have not been directly implemented into the launcher.
 
-For example, a user doesn't always need a Project's full description when using a Search endpoint. Instead, only return basic information for Search endpoints, such as `id`, `name`, `icon` and `summary`.
+The MCIP Standardized API is currently incomplete. [You can view a Pull Request here](https://github.com/mc-cip/spec/pull/3).
 
-**Provide "compressed" versions**
+The API is NOT required in order for hosts to use the MCIP format, however it is HIGHLY ENCOURAGED to implement it.
 
-If you have an API endpoint that lists all the versions of a Project, there's no need to return unnecessary fields like download links for every version. Instead, only return the `id`, `name`, `semver`, and `releaseDate` fields. You can then have a separate endpoint which can be used to get full information about a version using its ID.
+---
 
-**Separate changelogs if needed**.
+### MCIP Standardized API for Launcher Developers
 
-If versions contain large changelogs, consider moving the `changelog` object into a separate request.
+Launchers will have to read the `src` field of dependencies in order to see where to look for a dependency. This field MAY be a URL that links to a MCIP Standardized API-compliant service, however it also MAY be a String representing the name of a host.
 
-**Paginate Versions**
+If the value of the field is a URL, then launchers should use the MCIP Standardized API, with the value of the field as the base URL.
 
-If Projects have a large amount of versions, consider paginating them. Instead of returning all versions within one request, return the first 10 or 20. From their, API users can add a `?index` parameter to the query to specify where to start getting versions at the next call.
+If the value of the field is a name of a host, then launchers will have to use special implementations. Launchers will need to add special cases for different hosts. This is why it's recommended for hosts to utilize the MCIP Standardized API.
+
+If a launcher encounters a host that it does not know of, or a host set to `unknown`, it should look for the same ID in the hosts that it does know of. If it is unable to find the Project, an error should be shown to the user, explaining that it was unable to find the Project with the specified host.
+
+If a launcher encounters a host with the value `manual`, then launchers SHOULD NOT look for a Project with the same ID in known hosts. Instead, the launcher should tell the user that it manually needs to find a Project with the specified ID.
+
+---
+
+### Implementing Frameworks for Launchers
+
+Frameworks also exist as MCIP Format Projects. It's important for launchers to understand the Project metadata and install frameworks as needed.
+
+Framework IDs MUST be prefixed with `framework-`, so launchers can tell if a project is a Framework.
+For frameworks with the installation method set to `versionJsonInstall`, launchers should read the version JSON metadata specified in a file with `rel` set to `versionJson`. An example of a modloader using `versionJsonInstall` would be Fabric.
+
+Launchers may deviate from or completely ignore the value set in the installation method for the version.
+
+The `runForgeInstaller` installation method exists to tell launchers that this contains a Forge installer. Launchers may choose to use their own method of installation if they would like.

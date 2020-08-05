@@ -34,7 +34,7 @@ The name of a Project. This name MUST be a human readable name and SHOULD not co
 
 ### `summary` (optional)
 
-A short, one sentence summary of the Project. Any form of rich text such as HTML SHOULD NOT be used.
+A short, one sentence summary of the Project. Any form of rich text such as HTML CANNOT be used.
 
 ---
 
@@ -42,7 +42,7 @@ A short, one sentence summary of the Project. Any form of rich text such as HTML
 
 ### `description` (optional)
 
-A long description of the project. HTML MAY be used. It is not recommended to use Markdown as there may be rendering inconsistencies. Any form of code execution such as JavaScript or WebAssembly SHOULD NOT be used. HTML forms, buttons, or other form of interactive elements SHOULD NOT be used. iframes to external domains MAY be used, but it is recommended to embed iframes only with a trustworthy website.
+A long description of the project. HTML MAY be used. It is not recommended to use Markdown as there may be rendering inconsistencies. Any form of code execution such as JavaScript or WebAssembly SHOULD NOT be used. HTML forms, buttons, or other form of interactive elements SHOULD NOT be used. iframes to external domains MAY be used, but it is recommended to embed iframes only with a trustworthy website. It is recommended for launchers to take precautions and be cautions about loaded HTML.
 
 ---
 
@@ -50,31 +50,48 @@ A long description of the project. HTML MAY be used. It is not recommended to us
 
 This field MUST be stored as an array. This contains Media Item objects, which have the following fields.
 
-##### `rel` (optional)
+##### `rel`
 
-The relation of this file. Currently, the only valid option is `icon`. If the Media Item is not the Project's icon, this field SHOULD NOT be present.
+The relation of this Media Item. Valid options are:
+
+- `icon` - This is the main icon of this project.
+- `gallery` - This item should be shown in a list of other items marked `gallery`.
+
+This field CAN be an array of multiple `rel` values. Currently this is not needed, however it exists so more `rel` values could be added later.
+
+The `icon` relation CAN ONLY be present in ONE Media Item. It CANNOT be present in multiple Media Items. It is NOT required.
+
+The `gallery` relation CAN be present in multiple Media Items.
+
+If an item with the `icon` relation is not present, launchers should show a placeholder.
 
 ##### `type`
 
-The type of this Media Item. Valid options are `video` and `image`.
+The type of this Media Item. Valid options are `video` and `image`. This field exists to indicate to launchers what this item is and to allow them to render correctly. Launchers SHOULD NOT infer type based on file extension.
 
 ##### `embed`
 
 The `embed` field is valid for both `video` and `image`. It contains a URI to a webpage which SHOULD be embedded when displaying this Media Item. It is recommended for hosts to only allow trustworthy domains to be embedded.
 
+There is no difference between embedded videos and images, as they both display webpages, however the type field MUST still be specified.
+
 ##### `src`
 
-The `src` field is valid for both `video` and `image`. It contains a direct URI to either a playable video file or an image file. It is RECOMMENDED for images to be in the WebP or PNG formats, and it is RECOMMENDED for videos to be in the WebM format. Recommended video codecs include VP9 and AV1. Base64 encoded images, which are typically prefixed with `data:base64
+The `src` field is valid for both `video` and `image`. It contains a direct URI to either a playable video file or an image file. It is RECOMMENDED for images to be in the WebP or PNG formats, and it is RECOMMENDED for videos to be in the WebM format. Recommended video codecs include VP9 and AV1.
 
-`embed` and `src` are conflicting fields and both fields CANNOT be present in the same Gallery Item.
+Base64 encoded images, which are typically prefixed with `data:base64` are NOT RECOMMENDED, however they CAN be present. If a Base64 encoded image is present, it MUST be prefixed with `data:base64`.
+
+`embed` and `src` are conflicting fields and both fields CANNOT be present in the same Media Item.
 
 ##### `caption` (optional)
 
-An optional string which can be displayed as a caption for the current Gallery Item. Any form of rich text such as HTML CANNOT be used. `caption` CANNOT be present when `rel` is set to `icon`.
+An optional string which can be displayed as a caption for the current Media Item. Any form of rich text such as HTML CANNOT be used. `caption` CANNOT be present when `rel` is set to `icon`.
 
 ##### `sha256` (optional)
 
 An optional SHA256 checksum for the media file. This field CANNOT be present if the `embed` field is present.
+
+---
 
 ### `authors` (optional)
 
@@ -134,11 +151,11 @@ An optional link to the category on a host, where users could see Projects withi
 
 This is an object that contains the following fields:
 
-##### `sha256` (optional)
+###### `sha256` (optional)
 
 An optional SHA256 checksum of the icon specified in `uri`.
 
-##### `uri`
+###### `uri`
 
 The URI of this icon. This field is required to be present if the `icon` object is present.
 
@@ -148,13 +165,27 @@ The URI of this icon. This field is required to be present if the `icon` object 
 
 This is an object that contains information about the license that a project is under. It contains the following fields:
 
-##### `spdx`
+##### `id`
 
-The SPDX identifier of the license. [You can find a list of SPDX license names and identifiers here](https://spdx.org/licenses/).
+The identifier of the license. Valid options are:
+
+- [All SPDX License Identifiers](https://spdx.org/licenses/)
+- `ARR` - All Rights Reserved
+- `MMPL` - Minecraft Mod Public License
+- `Generic-Open` - An generic open source license
+- `Generic-Proprietary` - An generic proprietary license
+
+Use the `Generic-Open` and `Generic-Proprietary` IDs for when a Project is using a custom license or a license not specified in the list above.
+
+##### `name`
+
+The human readable name of the license. It is recommended to keep it short and similar to the identifier specified in `id`. For identifiers users may not be familiar with, it is recommended to expand them. For example, use `All Rights Reserved` instead of `ARR`. Similarly, use `Minecraft Mod Public License` instead of `MMPL`.
+
+If using the `Generic-Open` or `Generic-Proprietary` IDs, use the actual name of the license for this field. If the license is specific to the Project, it's recommended to use `Custom License` as the name.
 
 ##### `uri`
 
-A URL linking to the full license.
+A URL linking to a readable copy of the license.
 
 ##### `modpackUsage` (optional)
 
@@ -163,6 +194,12 @@ A field describing usage of the Project in modpacks. Valid options:
 - `alwaysAllow` - This Project can be used in a modpack without asking for permission.
 - `requiresPermission` - Before included in a modpack, permission must be granted from the author.
 - `neverAllow` - This Project can never be used in a modpack.
+
+This field overrides any restrictions stated in the Project's license. If you are a mod author and set this field to `alwaysAllow`, you are granting permission for redistribute the files linked in this metadata to be redistributed inside a modpack.
+
+If you are unsure whether or not you want your mod to be distributed in modpacks, `requiresPermission` is recommended.
+
+If this field is not specified, launchers should assume `alwaysAlllow`.
 
 ---
 
@@ -210,7 +247,7 @@ In the example above, the project `first-successor` was released first. After th
 
 ## Version Information
 
-Projects can contain a `versions` array, which lists Version Objects.
+Projects can contain a `versions` array, which lists Version Objects. These objects are stored in chronological order from most recent to least recent.
 
 ## Version Objects
 
@@ -230,19 +267,23 @@ The human-readable name of this version. It is RECOMMENDED to follow Semantic Ve
 
 ### `semver` (optional)
 
-An optional Semantic Versioning compatible version number. This field SHOULD ONLY be present if the version's name conforms to Semantic Versioning. This field SHOULD NOT be present if the name does not conform to SemVer.
+An optional Semantic Versioning compatible version number. It is HIGHLY RECOMMENDED that this field only be present when a version's name conforms to SemVer. This field CAN be present when the version's name does not conform to SemVer, however it's recommended to only be present if the name conforms.
+
+Launchers can use this field to compare different versions. However, because many Minecraft mods do not conform to SemVer, it's recommended for launchers to compare using other fields, such as `releaseDate`.
 
 ---
 
 ### `releaseDate`
 
-The release date of this version. It MUST be stored as an ISO-8601 conforming String.
+The release date of this version. It MUST be stored as an ISO-8601 conforming String. This MUST include UTC time at the end. A valid example is `2020-01-01T12:00:00Z`. This example date is the 1st of January, 2020 at 12:00:00 UTC. Spaces and time zone offsets (e.g. `+01:00`) CANNOT be used. The `Z` at the end of the string MUST be included and it MUST be capitalized. The `T` separating the date and time MUST be included and it MUST be capitalized. Other values, such as `2020-W32` are NOT allowed. The ONLY allowed format is the one demonstrated in the example.
+
+If the time of a release is unknown, the value SHOULD default to `12:00:00Z`. If the date is completely unknown or hosts do not wish to provide inaccurate data, the value `unknown` CAN be passed.
 
 ---
 
 ### `changelog`
 
-The changelog of this version. This MAY be moved into a separate API call for hosts. The changelog MAY contain HTML.
+The changelog of this version. The changelog MAY contain HTML.
 
 ---
 
@@ -267,24 +308,37 @@ Frameworks exist as a separate type because they may require a more advanced ins
 
 ##### `src`
 
-This field contains where this dependency can be downloaded. It contains the name of the host, in an all-lowercase string. Examples include: `curseforge`, `diluv` and `modrinth`. If the `type` field is set to `framework`, this field CANNOT be present.
+This field contains where this dependency can be downloaded. It MUST either a URL or the name of the host stored as an all lowercase string.
+
+This field CAN be an array of multiple Hosts that contain the same project with the same ID.
+
+For hosts that utilize the recommended MCIP Standardized API (see **format_introduction.md**), this field MUST be the base URL of the API. For example, if the base URL of the `example` host is `api.example.com`, then this field MUST be `https://api.example.com`. URLs MUST contain `https://` and the non-secure `http://` prefix is NOT allowed. The value CANNOT contain a trailing slash.
+
+For hosts that do not utilize the MCIP Standardized API, then this field MUST be an all-lowercase String representing the name of the host. Examples include `diluv`, `modrinth`, and `curseforge`. Using an `https://` prefix for hosts that do not use the MCIP Standardized API is NOT allowed.
+
+Using the all-lowercase string is NOT RECOMMENDED, as it requires more implementation for launchers and can lead to incompatibility. It is HIGHLY RECOMMENDED to implement the MCIP Standardized API.
+
+Information on how launcher developers should handle information contained in the `src` field is available in **format_introduction.md**.
+
+If a source is completely unknown or there is no source that can be specified for whatever reason, the value `unknown` can be passed. From there it is up to launchers to figure out where to download this file. Because of this, it is NOT RECOMMENDED to pass the `unknown` value.
+
+For dependencies that cannot be automatically downloaded at all, set this value to `manual`. This value SHOULD ONLY be used in causes where it is impossible to automate. For example, CurseForge _is_ possible to automate, so dependencies that are on CurseForge should not be set to `manual`, instead they should be set to `curseforge`. An example that _should_ be set to manual is the mod Galacticraft.
 
 ##### `id`
 
-The ID of the required dependency. If the dependency is a required asset and not a framework, then the ID of the asset stored at the host specified in the `src` field should be used. If the dependency is a required framework, then a framework from the list of standardized framework IDs should be used:
-
-- `fabric-loader`
-- `forge`
-- `liteloader`
-- `rift`
+The ID of the required dependency. This should be the ID for the project that can be found at the host specified in `src`. If this project is a Framework, it MUST be one of the values listed in **format_values.md** for Framework IDs. Hosts serving Framework metadata MUST use these standardized IDs.
 
 ##### `required`
 
-This field MUST be present on dependencies with the `asset` type. It CANNOT be present on dependencies with the `framework` type. This field is a boolean that indicates whether a dependency is required in order for the Project requiring it to function properly.
+This field MUST be present on dependencies with the `asset` type. This field is a boolean that indicates whether a dependency is required in order for the Project requiring it to function properly.
 
 ##### `version`
 
 This field MUST be either an array or String. If this field is an array, it MUST contain a list of compatible versions. If this field is a String, it MUST contain a Semantic Versioning comparison String. An example of a comparison string is `>= 25.0.219`
+
+##### `installation` (optional)
+
+This field describes how this version can be installed. It is NOT required. For more information, please view `files.installation`.
 
 ---
 
@@ -301,29 +355,23 @@ There is no restriction on what this value can be. However, it is RECOMMEND that
 
 An SHA256 checksum of the file. This may be used by launchers in order to verify download integrity.
 
-##### `rel` (optional)
+##### `rel`
 
-The relation of this file. This MUST be one of the following values:
-
-- `primary` - The primary file of this version. This is what launchers should download.
-- `source` - Source code of this version
-- `deobf` - Deobfuscation file for this version
-
-If this field is not present, the file should be assumed to be `primary`. The values of this field CAN be present in multiple files. For example, a version can have a file for both the Forge and Fabric modloaders, and both of those files can have the `rel` field set to `primary`.
+The relation of this file. Possible values for this field are available in **format_values.md**. The values of this field CAN be present in multiple files. For example, a version can have a file for both the Forge and Fabric modloaders, and both of those files can have the `rel` field set to `primary`.
 
 ##### `dependencies` (optional)
 
 This field MUST conform to the same specification as the Version's dependencies. BOTH a File and Version can have dependencies.
+
 It is RECOMMENDED to define Framework/Modloader dependencies as File Dependencies and NOT Version Dependencies. When downloading a file, launchers SHOULD pay attention to both the Version and FIle dependencies.
 
-##### `installationMethod`
+##### `installation`
 
-The installation method of this file. Valid options are:
+The installation method of this file. This MUST be stored as an object. The object MUST contain the field `method`. The possible value of `method` are defined in **format_values.md**. This object CAN also contain extra information, stored as a field in the root of the object. Information on the extra fields can also be found in **format_values.md**.
 
-- `placeInDirectory` - This file must be placed in the directory specified in a separate `directory` field
-- `modsDirectory` - A shorthand for `placeInDirectory` with `"directory": "mods"` as it's very common
-- `jarMod` - This file is a Jar mod and must be added into minecraft.jar
-- `other`
+The installation field CAN be present for BOTH version and file objects, similar to dependencies. The installation method in the file will override the installation method in the version if present.
+
+If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MCIP format, please view **format_example_fabric.md**.
 
 ##### `downloads`
 

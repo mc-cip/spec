@@ -6,7 +6,8 @@
   "media": [
     {
       "rel": "icon",
-      "uri": "https://example.com/example.png",
+      "icon": "image",
+      "src": "https://example.com/example.png",
       "sha256": "< sum goes here >"
     },
     {
@@ -31,6 +32,7 @@
       "team": true,
       "id": "111111-111111-111111-111111-111111",
       "name": "MCIP Contributors",
+      "uri": "https://github.com/mc-cip",
       "members": [
         {
           "id": "111111-111111-111111-111111-111111",
@@ -48,7 +50,7 @@
     }
   ],
   "license": {
-    "spdx": "MIT",
+    "id": "MIT",
     "uri": "https://opensource.org/licenses/MIT",
     "modpackUsage": "alwaysAllow"
   },
@@ -63,7 +65,7 @@
     },
     {
       "rel": "scm",
-      "name": "Project Source",
+      "name": "Project GitHub",
       "uri": "https://github.com/mc-cip/exampleproject"
     }
   ],
@@ -77,15 +79,14 @@
       "id": "1.0.0",
       "name": "Release 1.0.0",
       "semver": "1.0.0",
-      "releaseDate": "2020-04-08T12:00:00",
-      "changelog": "Example changelog goes here...",
+      "releaseDate": "2020-04-08T12:00:00Z",
+      "changelog": "Example changelog goes here... <b>HTML</b> may be used.",
       "minecraftVersions": [
         "1.16.1",
         "1.16"
       ],
       "dependencies": [
         {
-          "type": "asset",
           "src": "example-host",
           "id": "example-library-mod",
           "required": true,
@@ -102,13 +103,18 @@
           "sha256": "< sum goes here >",
           "dependencies": [
             {
-              "type": "framework",
-              "id": "fabric-loader",
+              "src": [
+                "index"
+              ],
+              "id": "framework-fabric-loader",
+              "required": true,
               "version": ">= 0.6.1.45"
             }
           ],
-          "installationMethod": "placeInDirectory",
-          "directory": "mods",
+          "installation": {
+            "method": "placeInDirectory",
+            "directory": "mods"
+          },
           "downloads": [
             "https://example.com/download/1.0.0-fabric.jar"
           ]
@@ -119,12 +125,18 @@
           "sha256": "< sum goes here >",
           "dependencies": [
             {
-              "type": "framework",
-              "id": "forge",
+              "src": [
+                "index"
+              ],
+              "id": "framework-forge",
+              "required": true,
               "version": ">= 32.0.106"
             }
           ],
-          "installationMethod": "modsDirectory",
+          "installation": {
+            "method": "placeInDirectory",
+            "directory": "mods"
+          },
           "downloads": [
             "https://example.com/download/1.0.0-forge.jar"
           ]

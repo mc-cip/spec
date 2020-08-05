@@ -1,0 +1,52 @@
+# Format Values
+
+This document is a list of standardized values that can be used in certain fields in the format.
+
+## Frameworks
+
+The following is a list of standardized Framework names.
+
+- `framework-fabric-loader`
+- `framework-forge`
+- `framework-liteloader`
+- `framework-rift`
+- `framework-risugami-modloader`
+
+These names are prefixed with `framework-` to differentiate them between normal Projects. It also prevents possible collisions between Frameworks and other projects that have the same name.
+
+Hosts that serve Framework metadata MUST use these IDs. When a Framework ID is used in metadata, such as listed as a dependency, it MUST be one of the standardized values. Vanilla Minecraft does not have its own Framework ID as it CANNOT be listed as a required dependency.
+
+## File Relations
+
+Files can have the following `rel` values:
+
+- `primary` - This is the primary file of this version, and what launchers are most likely to use
+- `source` - Source code of this version
+- `deobf` - Deobfuscation file for this version
+- `javadoc` - Downloadable Javadoc
+- `installerWin` - This is a generic installer for Windows
+- `installerMacos` - This is a generic installer for macOS
+- `installerLinux` - This is a generic installer for Linux
+- `installerGeneric` - A generic installer
+- `versionJson` - Minecraft Version JSON information, used for Frameworks
+
+Generic Installers exist to allow Frameworks to be stored as Projects. If a Framework offers an installer for both Windows (e.g. .exe) and a generic jar-based installer, they should be stored as separate files with the respective `installerWin` and `installerGeneric` relations.
+
+There are also some standard Framework-specific `rel` values:
+
+- `forgeUniversal`
+- `forgeMdk`
+
+Non-standardized values may also be used, but they MUST be prefixed with `x-`. If you're using a non-standard value with a Framework, you SHOULD prefix it with `x-frameworkname`.
+
+## Installation Methods
+
+Files and versions can contain the `installation` object, which informs how to install the file. It contains the `method` field, which has the following possible values:
+
+- `placeInDirectory` - Place this file in a specified directory, relative to the path of the Minecraft game. Specify the directory in a field named `directory` installed the `installation` object
+- `jarMod` - This file is a jar mod, and must be added to minecraft.jar
+- `versionJsonInstall` - This version must be installed according to the file with the `versionJson` relation.
+- `runForgeInstaller` - This version should be installed using a Forge installer. Launchers MAY ignore this.
+- `other` - Unknown installation method
+
+For framework values such as `versionJsonInstall` and `runForgeInstaller`, launchers may ignore them if they do not provide enough information or they do not want to implement them. For example, a launcher may not want to run the Forge installer and instead perform the installation themselves.
