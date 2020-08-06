@@ -6,7 +6,7 @@
   "media": [
     {
       "rel": "icon",
-      "icon": "image",
+      "type": "image",
       "src": "https://example.com/example.png",
       "sha256": "< sum goes here >"
     },
