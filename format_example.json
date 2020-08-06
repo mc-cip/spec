@@ -51,6 +51,7 @@
   ],
   "license": {
     "id": "MIT",
+    "name": "MIT",
     "uri": "https://opensource.org/licenses/MIT",
     "modpackUsage": "alwaysAllow"
   },
@@ -103,9 +104,7 @@
           "sha256": "< sum goes here >",
           "dependencies": [
             {
-              "src": [
-                "index"
-              ],
+              "src": "index",
               "id": "framework-fabric-loader",
               "required": true,
               "version": ">= 0.6.1.45"
@@ -126,7 +125,8 @@
           "dependencies": [
             {
               "src": [
-                "index"
+                "index",
+                "other-service-that-hosts-forge"
               ],
               "id": "framework-forge",
               "required": true,

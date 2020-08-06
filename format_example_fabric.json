@@ -65,7 +65,7 @@
       "files": [
         {
           "rel": "versionJson",
-          "name": "profile.jar",
+          "name": "profile.jon",
           "sha256": "< sum goes here >",
           "downloads": [
             "https://meta.fabricmc.net/v2/versions/loader/1.16.1/0.9.0+build.204/profile/json"
