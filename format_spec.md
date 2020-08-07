@@ -367,7 +367,7 @@ It is RECOMMENDED to define Framework/Modloader dependencies as File Dependencie
 
 ##### `installation`
 
-The installation method of this file. This MUST be stored as an object. The object MUST contain the field `method`. The possible value of `method` are defined in **format_values.md**. This object CAN also contain extra information, stored as a field in the root of the object. Information on the extra fields can also be found in **format_values.md**.
+The installation method of this file. This MUST be stored as an object. The object MUST contain the field `method`. Information on the possible values in the installation object is [currently available as a Pull Request](https://github.com/mc-cip/spec/pull/7).
 
 The installation field CAN be present for BOTH version and file objects, similar to dependencies. The installation method in the file will override the installation method in the version if present.
 
