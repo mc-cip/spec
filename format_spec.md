@@ -287,24 +287,13 @@ The changelog of this version. The changelog MAY contain HTML.
 
 ---
 
-### `minecraftVersions`
-
-This field MUST be an array listing compatible Minecraft versions for this Project version.
-
----
-
 ### `dependencies` (optional)
 
-This field MUST be an array containing information about dependencies that may or may not be required for this project. Each object in this array contains the following fields:
+This field MUST be an array containing information about dependencies that may or may not be required for this project.
 
-##### `type`
+Required Minecraft versions MUST be stored as a dependency. They CANNOT contain the `src`, `required`, or `installation` fields. The ID MUST be `minecraft`. `src` is not specified as it is up to launchers to determine where to gather information about the Minecraft versions. They may gather it directly from Mojang, from the Index, or from another source.
 
-The type of dependency this is. Valid options are:
-
-- `asset` - For example, a required library mod
-- `framework` - For example, a required modloader
-
-Frameworks exist as a separate type because they may require a more advanced installation process.
+Dependency objects contains the following fields:
 
 ##### `src`
 

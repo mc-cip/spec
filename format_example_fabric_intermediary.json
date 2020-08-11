@@ -1,0 +1,79 @@
+{
+  "_comment": [
+    "The '_comment' field is non-standard and only exists for explanation purposes",
+    "This file demonstrates an example classpath library in the MCIP Format",
+    "It is based off the Fabric Intermediary"
+  ],
+  "id": "framework-fabric-intermediary",
+  "name": "Fabric Intermediary",
+  "summary": "Short summary about Fabric Intermediary.",
+  "description": "Long description about Fabric Intermediary.",
+  "media": [
+    {
+      "rel": "icon",
+      "type": "image",
+      "src": "https://example.com/fabric-icon.png",
+      "sha256": "< sum goes here >"
+    }
+  ],
+  "authors": [
+    {
+      "team": true,
+      "id": "111111-111111-111111-111111-111111",
+      "name": "Fabric Contributors",
+      "uri": "https://github.com/fabricmc",
+      "members": [
+        {
+          "id": "111111-111111-111111-111111-111111",
+          "name": "Example Fabric Contributor",
+          "uri": "https://example.com/example-webpage"
+        }
+      ]
+    }
+  ],
+  "categories": [],
+  "license": {
+    "id": "CC0-1.0",
+    "name": "CC0 1.0 Universal",
+    "uri": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "modpackUsage": "alwaysAllow"
+  },
+  "links": [
+    {
+      "rel": "scm",
+      "name": "Fabric Intermediary GitHub",
+      "uri": "https://github.com/fabricmc/intermediary"
+    }
+  ],
+  "versions": [
+    {
+      "id": "1.16.1",
+      "name": "Intermediary 1.16.1",
+      "releaseDate": "2020-08-05T20:59:00Z",
+      "changelog": "Intermediary changelog goes here...",
+      "installation": {
+        "method": "classpathLibrary",
+        "versionJson": {
+          "name": "net.fabricmc:intermediary:1.16.1",
+          "url": "https://maven.fabricmc.net"
+        }
+      },
+      "dependencies": [
+        {
+          "id": "minecraft",
+          "version": "1.16.1"
+        }
+      ],
+      "files": [
+        {
+          "rel": "primary",
+          "name": "intermediary-1.16.1.jar",
+          "sha256": "< sum goes here >",
+          "downloads": [
+            "https://maven.fabricmc.net/net/fabricmc/intermediary/1.16.1/intermediary-1.16.1.jar"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -51,9 +51,6 @@
       "name": "Release 0.9.0+build.204",
       "releaseDate": "2020-08-05T20:59:00Z",
       "changelog": "Fabric version changelog goes here...",
-      "minecraftVersions": [
-        "1.16.1"
-      ],
       "installation": {
         "method": "versionJsonInstall"
       },
@@ -62,10 +59,22 @@
         "This is why no extra files have to be linked",
         "Extra files CAN be added, however the installation method could no longer be 'versionJsonInstall' if those files are intended to be used to install Fabric"
       ],
+      "dependencies": [
+        {
+          "id": "minecraft",
+          "version": "1.16.1"
+        },
+        {
+          "src": "index",
+          "id": "framework-fabric-intermediary",
+          "version": "1.16.1",
+          "required": true
+        }
+      ],
       "files": [
         {
           "rel": "versionJson",
-          "name": "profile.jon",
+          "name": "profile.json",
           "sha256": "< sum goes here >",
           "downloads": [
             "https://meta.fabricmc.net/v2/versions/loader/1.16.1/0.9.0+build.204/profile/json"
