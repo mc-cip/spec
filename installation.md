@@ -39,6 +39,14 @@ This should be installed according to the file with `"rel": "versionJson"`. This
 
 This MUST be used for Versions that contain a file with `"rel": "versionJson"`. If a file with the `versionJson` relation is not present, this method is invalid. It is RECOMMENDED to place this method inside the Version Object instead of a File Object.
 
+## `classpathLibrary`
+
+This project is a library that must be present on the Minecraft classpath.
+
+This has an optional `versionJson` field. The field is an object and it contains the information that would be stored about the project if it were specified in a version JSON file, such as `name` and `url`.
+
+Launchers should use the value of the `versionJson` field to correlate libraries defined in a version JSON file and a library in MCIP format.
+
 ### `runInstaller`
 
 The file with an installer relation value should be executed. Note that this field is very vague and it's recommended to use something with more information such as `versionJsonInstall`.
