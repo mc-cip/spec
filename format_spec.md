@@ -42,7 +42,7 @@ A short, one sentence summary of the Project. Any form of rich text such as HTML
 
 ### `description` (optional)
 
-A long description of the project. HTML MAY be used. It is not recommended to use Markdown as there may be rendering inconsistencies. Any form of code execution such as JavaScript or WebAssembly SHOULD NOT be used. HTML forms, buttons, or other form of interactive elements SHOULD NOT be used. iframes to external domains MAY be used, but it is recommended to embed iframes only with a trustworthy website. It is recommended for launchers to take precautions and be cautions about loaded HTML.
+A long description of the project. HTML MAY be used. Markdown CANNOT be used. Any form of code execution such as JavaScript or WebAssembly CANNOT be used. HTML forms, buttons, or other form of interactive elements SHOULD NOT be used. iframes to external domains MAY be used, but it is recommended to embed iframes only with a trustworthy website. It is recommended for launchers to take precautions and be cautions about loaded HTML. See **format_implementing** for more information.
 
 ---
 
@@ -283,7 +283,7 @@ If the time of a release is unknown, the value SHOULD default to `12:00:00Z`. If
 
 ### `changelog`
 
-The changelog of this version. The changelog MAY contain HTML.
+The changelog of this version. The changelog MAY contain HTML. It follows the same rules as `description` for what is allowed.
 
 ---
 
