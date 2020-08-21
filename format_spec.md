@@ -4,9 +4,7 @@ This document provides detailed information on the MCIP Format.
 
 The MCIP format uses JSON to store information. If providing an API that returns format-compliant information, the `application/json` Content-Type header SHOULD be provided. If stored on disk, the `.json` extension SHOULD be used.
 
-Metadata MAY be modularized in order to save bandwidth or storage space. Information on what fields may be modularized and the proper method of doing it will be at the end of this document.
-
-An format-compliant example is provided in `format_example.json`
+A format-compliant example is provided in **format_example.json**.
 
 ## Fields
 
@@ -16,7 +14,7 @@ Fields are stored inside the JSON metadata of a Project. Fields that are optiona
 
 ### `schemaVersion`
 
-This field MUST be stored as an integer. It contains the version of the Format being used, to help with backwards compatibility.
+This field MUST be stored as an integer. It contains the version of the Format being used, to help with backwards compatibility. The current value of this at the time of writing is `1`.
 
 ---
 
@@ -28,7 +26,7 @@ The ID of the Project. There is no standard or required format on how to store a
 
 ### `name`
 
-The name of a Project. This name MUST be a human readable name and SHOULD not contain unnecessary information. For instance, the name field should not specify where the project is being hosted, or the authors of a project.
+The name of a Project. This name MUST be a human readable name and SHOULD NOT contain unnecessary information. For example, the name field should not specify where the project is being hosted, or the authors of a project.
 
 ---
 
@@ -42,7 +40,7 @@ A short, one sentence summary of the Project. Any form of rich text such as HTML
 
 ### `description` (optional)
 
-A long description of the project. HTML MAY be used. Markdown CANNOT be used. Any form of code execution such as JavaScript or WebAssembly CANNOT be used. HTML forms, buttons, or other form of interactive elements SHOULD NOT be used. iframes to external domains MAY be used, but it is recommended to embed iframes only with a trustworthy website. It is recommended for launchers to take precautions and be cautions about loaded HTML. See **format_implementing** for more information.
+A long description of the project. HTML MAY be used. Markdown or other forms of rich text CANNOT be used. See **format_implementing.md** for information on how launchers should implement HTML, as well as forbidden elements and other guidelines.
 
 ---
 
@@ -57,13 +55,13 @@ The relation of this Media Item. Valid options are:
 - `icon` - This is the main icon of this project.
 - `gallery` - This item should be shown in a list of other items marked `gallery`.
 
-This field CAN be an array of multiple `rel` values. Currently this is not needed, however it exists so more `rel` values could be added later.
+This field CAN be an array of multiple values. Currently this is not needed, however it exists so more `rel` values can be added later.
 
 The `icon` relation CAN ONLY be present in ONE Media Item. It CANNOT be present in multiple Media Items. It is NOT required.
 
 The `gallery` relation CAN be present in multiple Media Items.
 
-If an item with the `icon` relation is not present, launchers should show a placeholder.
+If an item with the `icon` relation is not present, launchers should show a placeholder image.
 
 ##### `type`
 
@@ -81,7 +79,7 @@ The `src` field is valid for both `video` and `image`. It contains a direct URI 
 
 Base64 encoded images, which are typically prefixed with `data:base64` are NOT RECOMMENDED, however they CAN be present. If a Base64 encoded image is present, it MUST be prefixed with `data:base64`.
 
-`embed` and `src` are conflicting fields and both fields CANNOT be present in the same Media Item.
+**`embed` and `src` are conflicting fields and both fields CANNOT be present in the same Media Item.**
 
 ##### `caption` (optional)
 
@@ -97,7 +95,7 @@ An optional SHA256 checksum for the media file. This field CANNOT be present if 
 
 This field MUST be stored as an array. It contains objects storing the information about each author. Those objects MUST be EITHER a Team or an individual Author.
 
-**Team objects consist of the following fields:**
+**Team Objects consist of the following fields:**
 
 ##### `team`
 
@@ -105,7 +103,7 @@ Teams MUST have a `team` field that is set to true. A `team` field that is not s
 
 ##### `id`
 
-A unique identifier to this team, allowing you to search by Team. There is no required format for how this ID should be generated, however it MUST be unique to the Team
+A unique identifier to this team, allowing you to search by Team. There is no required format for how this ID should be generated, however it MUST be unique to the Team.
 
 ##### `name`
 
@@ -119,7 +117,7 @@ An optional field that can link to a webpage relating to the Team.
 
 An array containing Author objects, who are the members of the team.
 
-**Author objects consist of the following fields:**
+**Author Objects consist of the following fields:**
 
 ##### `id`
 
@@ -135,29 +133,11 @@ An optional field that specifies a website relating to the author. It may be the
 
 ---
 
-### `categories` (optional)
+### `tags` (optional)
 
-This field MUST be stored as an array. It contains Category Objects. Those objects MUST be made up of the following fields:
+This field MUST be stored as an array of strings. Tags contain grouping information about the project - sometimes referred to as "categories" by other hosts. Example tags include `mod`, `modpack`, `framework`, `magic`, and `tech`. Standardized tag names are available in **format_values.md**. The standard SHOULD be followed, however it DOES NOT have to be followed.
 
-##### `name`
-
-The human readable name of the category. Examples include "Magic", "Technology", and "World Gen". It is NOT RECOMMENDED to use the name of a modloader as a category.
-
-##### `uri` (optional)
-
-An optional link to the category on a host, where users could see Projects within that category.
-
-##### `icon` (optional)
-
-This is an object that contains the following fields:
-
-###### `sha256` (optional)
-
-An optional SHA256 checksum of the icon specified in `uri`.
-
-###### `uri`
-
-The URI of this icon. This field is required to be present if the `icon` object is present.
+If other information is useful for a tag, such as an icon or URL, this metadata should be provided by the host. There is currently no standardized method of defining this information.
 
 ---
 
@@ -195,11 +175,11 @@ A field describing usage of the Project in modpacks. Valid options:
 - `requiresPermission` - Before included in a modpack, permission must be granted from the author.
 - `neverAllow` - This Project can never be used in a modpack.
 
-This field overrides any restrictions stated in the Project's license. If you are a mod author and set this field to `alwaysAllow`, you are granting permission for redistribute the files linked in this metadata to be redistributed inside a modpack.
+This field overrides any restrictions stated in the Project's license. If you are a mod author and set this field to `alwaysAllow`, you are granting permission for the files linked in this metadata to be redistributed inside a modpack.
 
 If you are unsure whether or not you want your mod to be distributed in modpacks, `requiresPermission` is recommended.
 
-If this field is not specified, launchers should assume `alwaysAlllow`.
+If this field is not specified, launchers should assume `requiresPermission`.
 
 ---
 
@@ -232,9 +212,9 @@ The link, to be viewed in a web browser.
 
 ### `successor` and `predecessor` (optional)
 
-If an older or newer version of a Project exists, but has a separate ID, these fields may be used. These fields MUST be either an array or String representing the respective projects' IDs. If the field is an array, the Projects should be listed in chronological order from when they were first released.
+If an older or newer version of a Project exists, but has a separate ID, these fields may be used. These fields MUST be either an Array or String representing the respective projects' IDs. If the field is an array, the Projects should be listed in chronological order from when they were first released.
 
-```
+```json
 "successor": [
   "first-successor",
   "second-successor
@@ -242,6 +222,8 @@ If an older or newer version of a Project exists, but has a separate ID, these f
 ```
 
 In the example above, the project `first-successor` was released first. After the release of `first-successor`, the project `second-successor` was released.
+
+The successor and predecessor projects should, ideally, be the same project, just under a different ID. For example, the project may have been forked and an updated version was created by a different person.
 
 ---
 
@@ -277,7 +259,7 @@ Launchers can use this field to compare different versions. However, because man
 
 The release date of this version. It MUST be stored as an ISO-8601 conforming String. This MUST include UTC time at the end. A valid example is `2020-01-01T12:00:00Z`. This example date is the 1st of January, 2020 at 12:00:00 UTC. Spaces and time zone offsets (e.g. `+01:00`) CANNOT be used. The `Z` at the end of the string MUST be included and it MUST be capitalized. The `T` separating the date and time MUST be included and it MUST be capitalized. Other values, such as `2020-W32` are NOT allowed. The ONLY allowed format is the one demonstrated in the example.
 
-If the time of a release is unknown, the value SHOULD default to `12:00:00Z`. If the date is completely unknown or hosts do not wish to provide inaccurate data, the value `unknown` CAN be passed.
+If the time of a release is unknown, it SHOULD default to `12:00:00Z`. If the date is completely unknown or hosts do not wish to provide inaccurate data, the value `unknown` CAN be passed.
 
 ---
 
@@ -289,45 +271,29 @@ The changelog of this version. The changelog MAY contain HTML. It follows the sa
 
 ### `dependencies` (optional)
 
-This field MUST be an array containing information about dependencies that may or may not be required for this project.
+This field MUST be an array containing information about dependencies that may or may not be required for this project. Each dependency object contained in this array follows the same format as a regular project, but not all fields are required. Other fields relating to dependencies are also added.
 
-Required Minecraft versions MUST be stored as a dependency. They CANNOT contain the `src`, `required`, or `installation` fields. The ID MUST be `minecraft`. `src` is not specified as it is up to launchers to determine where to gather information about the Minecraft versions. They may gather it directly from Mojang, from the Index, or from another source.
-
-Dependency objects contains the following fields:
-
-##### `src`
-
-This field contains where this dependency can be downloaded. It MUST either a URL or the name of the host stored as an all lowercase string.
-
-This field CAN be an array of multiple Hosts that contain the same project with the same ID.
-
-For hosts that utilize the recommended MCIP Standardized API (see **format_introduction.md**), this field MUST be the base URL of the API. For example, if the base URL of the `example` host is `api.example.com`, then this field MUST be `https://api.example.com`. URLs MUST contain `https://` and the non-secure `http://` prefix is NOT allowed. The value CANNOT contain a trailing slash.
-
-For hosts that do not utilize the MCIP Standardized API, then this field MUST be an all-lowercase String representing the name of the host. Examples include `diluv`, `modrinth`, and `curseforge`. Using an `https://` prefix for hosts that do not use the MCIP Standardized API is NOT allowed.
-
-Using the all-lowercase string is NOT RECOMMENDED, as it requires more implementation for launchers and can lead to incompatibility. It is HIGHLY RECOMMENDED to implement the MCIP Standardized API.
-
-Information on how launcher developers should handle information contained in the `src` field is available in **format_introduction.md**.
-
-If a source is completely unknown or there is no source that can be specified for whatever reason, the value `unknown` can be passed. From there it is up to launchers to figure out where to download this file. Because of this, it is NOT RECOMMENDED to pass the `unknown` value.
-
-For dependencies that cannot be automatically downloaded at all, set this value to `manual`. This value SHOULD ONLY be used in causes where it is impossible to automate. For example, CurseForge _is_ possible to automate, so dependencies that are on CurseForge should not be set to `manual`, instead they should be set to `curseforge`. An example that _should_ be set to manual is the mod Galacticraft.
+The following fields are changed fields for dependencies. Dependencies MUST contain each of these fields. These fields are the minimum requirement for a dependency.
 
 ##### `id`
 
-The ID of the required dependency. This should be the ID for the project that can be found at the host specified in `src`. If this project is a Framework, it MUST be one of the values listed in **format_values.md** for Framework IDs. Hosts serving Framework metadata MUST use these standardized IDs.
+The ID of the required dependency. If this project is a Framework, it MUST be one of the values listed in **format_values.md** for Framework IDs. Hosts serving Framework metadata MUST use these standardized IDs.
 
 ##### `required`
 
-This field MUST be present on dependencies with the `asset` type. This field is a boolean that indicates whether a dependency is required in order for the Project requiring it to function properly.
+This field is a boolean that indicates whether a dependency is required in order for the Project requiring it to function properly.
 
 ##### `version`
 
-This field MUST be either an array or String. If this field is an array, it MUST contain a list of compatible versions. If this field is a String, it MUST contain a Semantic Versioning comparison String. An example of a comparison string is `>= 25.0.219`
+This field MUST be either an Array or String. If this field is an array, it MUST contain a list of compatible versions. If this field is a String, it MUST contain a Semantic Versioning comparison String. An example of a comparison string is `>= 25.0.219`.
 
-##### `installation` (optional)
+<br>
 
-This field describes how this version can be installed. It is NOT required. For more information, please view `files.installation`.
+The required Minecraft Version also MUST be stored as a dependency. It's `id` value MUST be set to `minecraft`. It also MUST not contain the `required` field, as Minecraft is not an optional component.
+
+If not all information is listed inside a dependency object and it's metadata is not hosted on the same host which is serving metadata for the parent project, the `src` field may be used. This field MUST contain a URL. This URL MUST serve MCIP Format-compliant metadata about the required dependency. It MUST include the `versions` field.
+
+A dependencies implementation guide for launchers is available in **format_implementing.md**.
 
 ---
 
@@ -338,7 +304,7 @@ File Objects contain information on a downloadable file. Fields are as follows:
 
 ##### `name`
 
-There is no restriction on what this value can be. However, it is RECOMMEND that this be the name of the file. Launchers and other automation tools MAY ignore the value. This value will be shown to users.
+There is no restriction on what this value can be. However, it is RECOMMEND that this be the name of the file. Launchers and other automation tools MAY ignore the value. This value CAN be shown to users.
 
 ##### `sha256`
 
@@ -358,9 +324,9 @@ It is RECOMMENDED to define Framework/Modloader dependencies as File Dependencie
 
 The installation method of this file. This MUST be stored as an object. The object MUST contain the field `method`. Information on the possible values in the installation object is [currently available as a Pull Request](https://github.com/mc-cip/spec/pull/7).
 
-The installation field CAN be present for BOTH version and file objects, similar to dependencies. The installation method in the file will override the installation method in the version if present.
+The installation field CAN be present for BOTH Version and File Objects, similar to `dependencies`. The installation method in the file will override the installation method in the version if present.
 
-If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MCIP format, please view **format_example_fabric.md**.
+If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MCIP format, please view **format_example_fabric_loader.json**.
 
 ##### `downloads`
 

@@ -4,6 +4,7 @@
     "This file demonstrates an example Framework in the MCIP Format",
     "It is based off the Fabric modloader"
   ],
+  "schemaVersion": 1,
   "id": "framework-fabric-loader",
   "name": "Fabric Loader",
   "summary": "Short summary about Fabric.",
@@ -31,7 +32,9 @@
       ]
     }
   ],
-  "categories": [],
+  "tags": [
+    "framework"
+  ],
   "license": {
     "id": "Apache-2.0",
     "name": "Apache License 2.0",
@@ -65,7 +68,6 @@
           "version": "1.16.1"
         },
         {
-          "src": "index",
           "id": "framework-fabric-intermediary",
           "version": "1.16.1",
           "required": true

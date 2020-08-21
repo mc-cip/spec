@@ -4,6 +4,7 @@
     "This file demonstrates an example classpath library in the MCIP Format",
     "It is based off the Fabric Intermediary"
   ],
+  "schemaVersion": 1,
   "id": "framework-fabric-intermediary",
   "name": "Fabric Intermediary",
   "summary": "Short summary about Fabric Intermediary.",
@@ -31,7 +32,9 @@
       ]
     }
   ],
-  "categories": [],
+  "tags": [
+    "framework"
+  ],
   "license": {
     "id": "CC0-1.0",
     "name": "CC0 1.0 Universal",

@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 1,
   "id": "111111-111111-111111-111111-111111",
   "name": "Example Project",
   "summary": "This is a short, one-sentence summary of the Example Project.",
@@ -42,12 +43,8 @@
       ]
     }
   ],
-  "categories": [
-    {
-      "name": "Example Category",
-      "uri": "https://example.com/browse?category=example",
-      "icon": "https://example.com/example-category.png"
-    }
+  "tags": [
+    "mod"
   ],
   "license": {
     "id": "MIT",
@@ -91,7 +88,7 @@
           ]
         },
         {
-          "src": "example-host",
+          "src": "https://example.com/external-mcip-metadata.json",
           "id": "example-library-mod",
           "required": true,
           "version": [
@@ -107,7 +104,6 @@
           "sha256": "< sum goes here >",
           "dependencies": [
             {
-              "src": "index",
               "id": "framework-fabric-loader",
               "required": true,
               "version": ">= 0.6.1.45"
@@ -127,10 +123,6 @@
           "sha256": "< sum goes here >",
           "dependencies": [
             {
-              "src": [
-                "index",
-                "other-service-that-hosts-forge"
-              ],
               "id": "framework-forge",
               "required": true,
               "version": ">= 32.0.106"

@@ -14,7 +14,23 @@ The following is a list of standardized Framework names.
 
 These names are prefixed with `framework-` to differentiate them between normal Projects. It also prevents possible collisions between Frameworks and other projects that have the same name.
 
-Hosts that serve Framework metadata MUST use these IDs. When a Framework ID is used in metadata, such as listed as a dependency, it MUST be one of the standardized values. Vanilla Minecraft does not have its own Framework ID as it CANNOT be listed as a required dependency.
+Hosts that serve Framework metadata MUST use these IDs. When a Framework ID is used in metadata, such as listed as a dependency, it MUST be one of the standardized values.
+
+---
+
+## Tags
+
+This is a list of standardized values that can be present in the `tags` field. It is not required to use these values, although it is encouraged to use them.
+
+- `mod`
+- `modpack`
+- `resourcepack`
+- `texturepack` (note: use `resourcepack` for packs that support it)
+- `datapack`
+- `world`
+- `framework`
+
+---
 
 ## File Relations
 
@@ -29,8 +45,11 @@ Files can have the following `rel` values:
 - `installerLinux` - This is a generic installer for Linux
 - `installerGeneric` - A generic installer
 - `versionJson` - Minecraft Version JSON information, used for Frameworks
+- `compressedOverrides` - This file is a modpack overrides folder, stored as a compressed file.
 
 Generic Installers exist to allow Frameworks to be stored as Projects. If a Framework offers an installer for both Windows (e.g. .exe) and a generic jar-based installer, they should be stored as separate files with the respective `installerWin` and `installerGeneric` relations.
+
+The `compressedOverrides` relation allows for modpacks to be defined in the format. After downloading all required mods/projects for a modpack, launchers should download the file marked with `compressedOverrides`, decompress it, and copy it's contents to the Minecraft game directory. (TODO: move this information to Installation PR?)
 
 There are also some standard Framework-specific `rel` values:
 
