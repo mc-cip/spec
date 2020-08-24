@@ -4,7 +4,7 @@ This document provides detailed information on the MCIP Format.
 
 The MCIP format uses JSON to store information. If providing an API that returns format-compliant information, the `application/json` Content-Type header SHOULD be provided. If stored on disk, the `.json` extension SHOULD be used.
 
-A format-compliant example is provided in **format_example.json**.
+A format-compliant example is provided in **examples/format_example.json**.
 
 ## Fields
 
@@ -326,7 +326,7 @@ The installation method of this file. This MUST be stored as an object. The obje
 
 The installation field CAN be present for BOTH Version and File Objects, similar to `dependencies`. The installation method in the file will override the installation method in the version if present.
 
-If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MCIP format, please view **format_example_fabric_loader.json**.
+If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MCIP format, please view **examples/format_example_fabric_loader.json**.
 
 ##### `downloads`
 
