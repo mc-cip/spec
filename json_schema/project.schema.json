@@ -1,0 +1,310 @@
+{
+  "$id": "project.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCIP Metadata Format - Project",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier of this author."
+        },
+        "name": {
+          "type": "string",
+          "description": "A human-readable name of this author"
+        },
+        "uri": {
+          "type": "string",
+          "description": "A URI users can visit to view more about this author.",
+          "format": "uri"
+        }
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "name"
+  ],
+  "properties": {
+    "$schema": true,
+    "schemaVersion": {
+      "type": "integer",
+      "description": "The version of the MCIP Metadata Format.",
+      "minimum": 1,
+      "maximum": 1
+    },
+    "id": {
+      "type": "string",
+      "description": "A unique identifier for this Project."
+    },
+    "name": {
+      "type": "string",
+      "description": "The human-readable name of this Project."
+    },
+    "summary": {
+      "type": "string",
+      "description": "A short summary of this project, without HTML."
+    },
+    "description": {
+      "type": "string",
+      "description": "A long description of this project. May contain HTML."
+    },
+    "media": {
+      "type": "array",
+      "description": "Media Items for this Project.",
+      "items": {
+        "type": "object",
+        "description": "A Media Item.",
+        "additionalProperties": false,
+        "properties": {
+          "rel": {
+            "type": "string",
+            "description": "Relation of this Media Item.",
+            "enum": [
+              "icon",
+              "gallery"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of this Media Item.",
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "src": {
+            "type": "string",
+            "description": "The source of this Media Item.",
+            "format": "uri"
+          },
+          "caption": {
+            "type": "string",
+            "description": "A caption for this Media Item. Cannot contain HTML."
+          },
+          "sha256": {
+            "type": "string",
+            "description": "An SHA256 hash of the item linked to in src. Conflicts with embed."
+          },
+          "embed": {
+            "type": "string",
+            "description": "A link to an embedded webpage. Conflicts with sha256 and src.",
+            "format": "uri"
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "embed": false
+            },
+            "required": [
+              "src",
+              "rel",
+              "type"
+            ]
+          },
+          {
+            "properties": {
+              "sha256": false,
+              "src": false
+            },
+            "required": [
+              "rel",
+              "type",
+              "embed"
+            ]
+          }
+        ]
+      }
+    },
+    "authors": {
+      "type": "array",
+      "description": "The authors of this Project.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "An individual author.",
+            "$ref": "#/definitions/author"
+          },
+          {
+            "type": "object",
+            "description": "A Team consisting of multiple authors.",
+            "additionalProperties": false,
+            "required": [
+              "team",
+              "id",
+              "name",
+              "members"
+            ],
+            "properties": {
+              "team": {
+                "const": true,
+                "description": "Indicates whether or not this is a Team. Must be 'true' for Teams."
+              },
+              "id": {
+                "type": "string",
+                "description": "A unique identifier of this Team."
+              },
+              "name": {
+                "type": "string",
+                "description": "A human-readable name of this Team."
+              },
+              "uri": {
+                "type": "string",
+                "description": "A URI users can visit to view more about this Team.",
+                "format": "uri"
+              },
+              "members": {
+                "type": "array",
+                "description": "A list of authors that are part of this t Team.",
+                "items": {
+                  "$ref": "#/definitions/author"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "A tag that can be used to categorize this Project.",
+        "examples": [
+          "mod",
+          "modpack",
+          "resourcepack",
+          "datapack",
+          "world",
+          "framework"
+        ]
+      }
+    },
+    "license": {
+      "type": "object",
+      "description": "License Information for this Project.",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "uri"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "An identifier for this license. Includes all SPDX identifiers, as well as ARR, MMPL, Generic-Open, and Generic-Proprietary."
+        },
+        "name": {
+          "type": "string",
+          "description": "A human-readable name of this license."
+        },
+        "uri": {
+          "type": "string",
+          "description": "A URI where the full text of this license can be viewed.",
+          "format": "uri"
+        },
+        "modpackUsage": {
+          "type": "string",
+          "description": "Information on whether this Project can be used in modpacks.",
+          "enum": [
+            "alwaysAllow",
+            "requiresPermission",
+            "neverAllow"
+          ]
+        }
+      }
+    },
+    "links": {
+      "type": "array",
+      "description": "A list of links relating to this Project.",
+      "items": {
+        "type": "object",
+        "description": "A Link Object related to the Project.",
+        "required": [
+          "rel",
+          "name",
+          "uri"
+        ],
+        "properties": {
+          "rel": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "The relation of this Link to the Project. Can be an array.",
+            "examples": [
+              "homepage",
+              "documentation",
+              "wiki",
+              "scm",
+              "issues",
+              "community"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "A human-readable name of this Link."
+          },
+          "uri": {
+            "type": "string",
+            "description": "The Link, which can be viewed in a web browser.",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "successor": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "A successor mod ID."
+    },
+    "predecessor": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "A predecessor mod ID."
+    },
+    "versions": {
+      "type": "array",
+      "description": "Version information for this Project.",
+      "items": {
+        "$ref": "./version.schema.json"
+      }
+    }
+  }
+}

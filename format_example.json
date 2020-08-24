@@ -1,4 +1,5 @@
 {
+  "$schema": "./json_schema/project.schema.json",
   "schemaVersion": 1,
   "id": "111111-111111-111111-111111-111111",
   "name": "Example Project",
@@ -12,17 +13,20 @@
       "sha256": "< sum goes here >"
     },
     {
+      "rel": "gallery",
       "type": "video",
       "embed": "https://youtube.com/embed...",
       "caption": "This is an example embed."
     },
     {
+      "rel": "gallery",
       "type": "video",
       "src": "https://example.com/video.webm",
       "caption": "This is an example direct video link.",
       "sha256": "< sum goes here >"
     },
     {
+      "rel": "gallery",
       "type": "image",
       "src": "https://example.com/image.png",
       "caption": "This is an example image."

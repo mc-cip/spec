@@ -1,0 +1,221 @@
+{
+  "$id": "version.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCIP Metadata Format - Version",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "dependency": {
+      "type": "object",
+      "description": "A required or optional dependency.",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "An external source where more metadata about this dependency can be found.",
+          "format": "uri"
+        },
+        "id": {
+          "type": "string",
+          "description": "A unique ID for this Project."
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "version": {
+          "oneOf": [
+            {
+              "type": "array",
+              "description": "An array listing compatible versions.",
+              "items": {
+                "type": "string",
+                "description": "A compatible version"
+              }
+            },
+            {
+              "type": "string",
+              "description": "A SemVer comparison string.",
+              "examples": [
+                ">= 25.0.219"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "installation": {
+      "type": "object",
+      "description": "Installation information",
+      "additionalProperties": false,
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "The installation method to use.",
+          "enum": [
+            "placeInDirectory",
+            "versionJsonInstall",
+            "runInstaller",
+            "classpathLibrary",
+            "other"
+          ]
+        },
+        "directory": true,
+        "versionJson": true
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "placeInDirectory"
+            },
+            "directory": {
+              "type": "string",
+              "description": "The directory to place this in."
+            }
+          },
+          "required": [
+            "directory"
+          ]
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "classpathLibrary"
+            },
+            "versionJson": {
+              "type": "object",
+              "description": "The library as written in version JSON format."
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "enum": [
+                "versionJsonInstall",
+                "runInstaller",
+                "other"
+              ]
+            },
+            "directory": false,
+            "versionJson": false
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "files"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A unique identifier for this version."
+    },
+    "name": {
+      "type": "string",
+      "description": "A human-readable name of this version."
+    },
+    "semver": {
+      "type": "string",
+      "description": "A Semantic Versioning compatible version number."
+    },
+    "releaseDate": {
+      "type": "string",
+      "description": "The release date of this version, stored as ISO-8601 conforming.",
+      "pattern": "(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2})\\:(\\d{2})\\:(\\d{2})Z",
+      "examples": [
+        "2020-01-01T12:00:00Z"
+      ]
+    },
+    "changelog": {
+      "type": "string",
+      "description": "A changelog for this version. May contain HTML."
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "Required or optional dependencies for this version.",
+      "items": {
+        "$ref": "#/definitions/dependency"
+      }
+    },
+    "installation": {
+      "type": "object",
+      "description": "Installation Information for this version.",
+      "$ref": "#/definitions/installation"
+    },
+    "files": {
+      "type": "array",
+      "description": "An array containing the files for this version.",
+      "items": {
+        "type": "object",
+        "description": "A file object.",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "sha256",
+          "rel",
+          "downloads"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of this file."
+          },
+          "sha256": {
+            "type": "string",
+            "description": "An SHA256 checksum of this file."
+          },
+          "rel": {
+            "type": "string",
+            "description": "The relation of this file.",
+            "examples": [
+              "primary",
+              "source",
+              "deobf",
+              "javadoc",
+              "installerWin",
+              "installerMacos",
+              "installerLinux",
+              "installerGeneric",
+              "versionJson",
+              "compressedOverrides",
+              "forgeUniversal",
+              "forgeMdk"
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "description": "Dependencies for this specific file.",
+            "items": {
+              "$ref": "#/definitions/dependency"
+            }
+          },
+          "installation": {
+            "type": "object",
+            "description": "Installation Information for this file.",
+            "$ref": "#/definitions/installation"
+          },
+          "downloads": {
+            "type": "array",
+            "description": "An array containing download sources for this file.",
+            "items": {
+              "type": "string",
+              "description": "A URL linking to this file.",
+              "format": "uri"
+            }
+          }
+        }
+      }
+    }
+  }
+}

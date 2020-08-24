@@ -1,4 +1,5 @@
 {
+  "$schema": "./json_schema/project.schema.json",
   "_comment": [
     "The '_comment' field is non-standard and only exists for explanation purposes",
     "This file demonstrates an example Framework in the MCIP Format",
