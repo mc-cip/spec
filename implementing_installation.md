@@ -20,6 +20,14 @@ This is a very vague method and there's no correct way to implement it. Launcher
 
 Implementation of `runInstaller` mostly lies on the launcher. Launchers may add special exemptions for certain modloaders, for example.
 
+## Implementing `instanceInstall`
+
+Launchers should follow these steps in order to correctly install these projects:
+
+- Create a new directory specifically for this instance.
+- Install the required dependencies to the directory according to their installation info
+- If a file with `"rel": "compressedOverrides"` exists, download it and extract the contents to the instance directory
+
 ## Implementing `other`
 
 If an `other` installation method is found, an error should be presented to the user.

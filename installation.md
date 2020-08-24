@@ -39,7 +39,7 @@ This should be installed according to the file with `"rel": "versionJson"`. This
 
 This MUST be used for Versions that contain a file with `"rel": "versionJson"`. If a file with the `versionJson` relation is not present, this method is invalid. It is RECOMMENDED to place this method inside the Version Object instead of a File Object.
 
-## `classpathLibrary`
+### `classpathLibrary`
 
 This project is a library that must be present on the Minecraft classpath.
 
@@ -50,6 +50,15 @@ Launchers should use the value of the `versionJson` field to correlate libraries
 ### `runInstaller`
 
 The file with an installer relation value should be executed. Note that this field is very vague and it's recommended to use something with more information such as `versionJsonInstall`.
+
+### `instanceInstall`
+
+This is a modpack/instance and should be treated as such. Required dependencies should be installed to a directory specific to this instance, then files should be extracted from a file with `"rel" "compressedOverrides"` and moved to the directory.
+
+If this is a modpack, mods should be listed as a required dependency if it is possible to do so.
+
+Files in the `compressedOverrides` zip should be in the root. For example:
+`overrides.zip/overrides/overridden_file.txt` shouldn't be used. Instead, `overrides.zip/overridden_file.txt` is better.
 
 ### `other`
 
