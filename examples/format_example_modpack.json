@@ -1,0 +1,134 @@
+{
+  "$schema": "../json_schema/project.schema.json",
+  "_comment": [
+    "This file demonstrates an example modpack with 3 mods and overrides in the MCIP format"
+  ],
+  "schemaVersion": 1,
+  "id": "111111-111111-111111-111111-111111",
+  "name": "Example Modpack",
+  "summary": "This is a short, one-sentence summary of the Example Modpack.",
+  "description": "This is a long description describing the modpack. <b>HTML</b> can optionally be used.",
+  "media": [
+    {
+      "rel": "icon",
+      "type": "image",
+      "src": "https://example.com/example.png",
+      "sha256": "< sum goes here >"
+    },
+    {
+      "rel": "gallery",
+      "type": "video",
+      "embed": "https://youtube.com/embed...",
+      "caption": "This is an example embed."
+    },
+    {
+      "rel": "gallery",
+      "type": "video",
+      "src": "https://example.com/video.webm",
+      "caption": "This is an example direct video link.",
+      "sha256": "< sum goes here >"
+    },
+    {
+      "rel": "gallery",
+      "type": "image",
+      "src": "https://example.com/image.png",
+      "caption": "This is an example image."
+    }
+  ],
+  "authors": [
+    {
+      "team": true,
+      "id": "111111-111111-111111-111111-111111",
+      "name": "MCIP Contributors",
+      "uri": "https://github.com/mc-cip",
+      "members": [
+        {
+          "id": "111111-111111-111111-111111-111111",
+          "name": "Example MCIP Member",
+          "uri": "https://example.com/example-webpage"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "modpack"
+  ],
+  "license": {
+    "id": "MIT",
+    "name": "MIT",
+    "uri": "https://opensource.org/licenses/MIT",
+    "modpackUsage": "alwaysAllow"
+  },
+  "links": [
+    {
+      "rel": [
+        "x-discord",
+        "community"
+      ],
+      "name": "Modpack Discord",
+      "uri": "https://discord.gg/example"
+    }
+  ],
+  "versions": [
+    {
+      "id": "1.0.0",
+      "name": "Release 1.0.0",
+      "semver": "1.0.0",
+      "releaseDate": "2020-04-08T12:00:00Z",
+      "changelog": "Example changelog goes here... <b>HTML</b> may be used.",
+      "dependencies": [
+        {
+          "id": "minecraft",
+          "version": [
+            "1.16.1",
+            "1.16"
+          ]
+        },
+        {
+          "id": "framework-fabric-loader",
+          "required": true,
+          "version": ">= 0.6.1.45"
+        },
+        {
+          "id": "example-mod",
+          "required": true,
+          "version": [
+            "1.0.0",
+            "1.0.1"
+          ]
+        },
+        {
+          "id": "other-mod",
+          "required": true,
+          "version": "3.0.0"
+        },
+        {
+          "src": "https://example.com/external-mod.json",
+          "id": "external-mod",
+          "required": false,
+          "version": "6.2.1"
+        }
+      ],
+      "installation": {
+        "method": "instanceInstall"
+      },
+      "files": [
+        {
+          "rel": "compressedOverrides",
+          "name": "overrides.zip",
+          "sha256": "< sum goes here >",
+          "downloads": [
+            "https://example.com/download/overrides.zip"
+          ],
+          "_comment": [
+            "The structure of overrides.zip can be similar to:",
+            "overrides.zip/config/",
+            "overrides.zip/config/mod_config.yml",
+            "overrides.zip/resources/",
+            "overrides.zip/resources/example_resource.png"
+          ]
+        }
+      ]
+    }
+  ]
+}

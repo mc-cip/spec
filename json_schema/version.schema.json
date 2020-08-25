@@ -63,6 +63,8 @@
             "versionJsonInstall",
             "runInstaller",
             "classpathLibrary",
+            "instanceInstall",
+            "jarMod",
             "other"
           ]
         },
@@ -101,6 +103,8 @@
               "enum": [
                 "versionJsonInstall",
                 "runInstaller",
+                "instanceInstall",
+                "jarMod",
                 "other"
               ]
             },
