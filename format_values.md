@@ -57,3 +57,39 @@ There are also some standard Framework-specific `rel` values:
 - `forgeMdk`
 
 Non-standardized values may also be used, but they MUST be prefixed with `x-`. If you're using a non-standard value with a Framework, you SHOULD prefix it with `x-frameworkname`.
+
+---
+
+## Conditions
+
+Conditions can be used to provide specific information for certain users. Below are the current standardized condition groups as well as their options.
+
+### `environment`
+
+Refers to the Minecraft game environment
+
+##### `client`
+
+This is clientside and not a server.
+
+#### `server`
+
+This is serverside and not a client.
+
+<br>
+
+Below is an example using the `environment` group and `client` and `server` options.
+
+```json
+"conditions": {
+  "environment": {
+    "client": {
+      "allowed": true,
+    },
+    "server": {
+      "allowed": false
+    }
+  }
+}
+
+```

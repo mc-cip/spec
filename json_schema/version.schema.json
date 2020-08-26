@@ -24,7 +24,31 @@
           "description": "A unique ID for this Project."
         },
         "required": {
-          "type": "boolean"
+          "description": "Whether or not this Dependency is required.",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/conditional"
+            }
+          ]
+        },
+        "allowed": {
+          "description": "Whether or not this Dependency is allowed. Used with conditionals.",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/conditional"
+            }
+          ]
+        },
+        "conditions": {
+          "type": "object",
+          "description": "Condition-specific properties.",
+          "$ref": "#/definitions/conditional"
         },
         "version": {
           "oneOf": [
@@ -113,6 +137,22 @@
           }
         }
       ]
+    },
+    "conditional": {
+      "type": "object",
+      "description": "Conditional match",
+      "additionalProperties": false,
+      "properties": {
+        "environment": {
+          "type": "object",
+          "description": "Minecraft Game Environment",
+          "additionalProperties": false,
+          "properties": {
+            "client": {},
+            "server": {}
+          }
+        }
+      }
     }
   },
   "required": [
@@ -156,6 +196,11 @@
       "type": "object",
       "description": "Installation Information for this version.",
       "$ref": "#/definitions/installation"
+    },
+    "conditions": {
+      "type": "object",
+      "description": "Condition-specific properties.",
+      "$ref": "#/definitions/conditional"
     },
     "files": {
       "type": "array",

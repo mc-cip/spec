@@ -269,6 +269,47 @@ The changelog of this version. The changelog MAY contain HTML. It follows the sa
 
 ---
 
+### `allowed` (optional)
+
+Whether or not this version is allowed. Used with `conditions`. Can be `true`, `false`, or `"optional"`.
+
+---
+
+### `conditions` (optional)
+
+This field is an optional object that can be used for condition-specific fields. Currently it has one group, `environment`. Below is an example `environment` condition:
+
+```json
+"conditions": {
+  "environment": {
+    "client": {
+      "allowed": true,
+    },
+    "server": {
+      "allowed": false
+    }
+  }
+}
+
+```
+
+See **format_values.md** for the list of conditions.
+
+Conditions can also be defined directly for a field.
+
+```json
+"allowed": {
+  "environment": {
+    "client": true,
+    "server": false
+  }
+}
+```
+
+// TODO: move to separate file or section?
+
+---
+
 ### `dependencies` (optional)
 
 This field MUST be an array containing information about dependencies that may or may not be required for this project. Each dependency object contained in this array follows the same format as a regular project, but not all fields are required. Other fields relating to dependencies are also added.
@@ -279,9 +320,17 @@ The following fields are changed fields for dependencies. Dependencies MUST cont
 
 The ID of the required dependency. If this project is a Framework, it MUST be one of the values listed in **format_values.md** for Framework IDs. Hosts serving Framework metadata MUST use these standardized IDs.
 
+##### `allowed` (optional)
+
+Whether or not this dependency is allowed. Used in combination with conditionals. Can be `true`, `false`, or `"optional"`.
+
+##### `conditions` (optional)
+
+Follows the same format as `version.conditions`.
+
 ##### `required`
 
-This field is a boolean that indicates whether a dependency is required in order for the Project requiring it to function properly.
+This field is a boolean that indicates whether a dependency is required in order for the Project requiring it to function properly. Can be used as a conditional.
 
 ##### `version`
 

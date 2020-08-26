@@ -98,8 +98,18 @@
           ]
         },
         {
-          "id": "other-mod",
+          "id": "client-only-mod",
           "required": true,
+          "_comment": [
+            "Below is an example *Condition*",
+            "This dependency is only allowed on the client, not the server"
+          ],
+          "allowed": {
+            "environment": {
+              "client": true,
+              "server": false
+            }
+          },
           "version": "3.0.0"
         },
         {
