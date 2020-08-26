@@ -113,6 +113,20 @@
           "version": "3.0.0"
         },
         {
+          "id": "client-mod-with-optional-server",
+          "_comment": [
+            "This mod is required on the client,",
+            "but optional on the server"
+          ],
+          "required": {
+            "environment": {
+              "client": true,
+              "server": false
+            }
+          },
+          "version": "3.0.0"
+        },
+        {
           "src": "https://example.com/external-mod.json",
           "id": "external-mod",
           "required": false,

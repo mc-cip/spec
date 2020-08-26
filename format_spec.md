@@ -271,7 +271,7 @@ The changelog of this version. The changelog MAY contain HTML. It follows the sa
 
 ### `allowed` (optional)
 
-Whether or not this version is allowed. Used with `conditions`. Can be `true`, `false`, or `"optional"`.
+Whether or not this version is allowed. Used with `conditions`. Can be `true` or `false`.
 
 ---
 
@@ -322,7 +322,7 @@ The ID of the required dependency. If this project is a Framework, it MUST be on
 
 ##### `allowed` (optional)
 
-Whether or not this dependency is allowed. Used in combination with conditionals. Can be `true`, `false`, or `"optional"`.
+Whether or not this dependency is allowed. Used in combination with conditions. Can be `true` or `false`.
 
 ##### `conditions` (optional)
 
