@@ -277,36 +277,7 @@ Whether or not this version is allowed. Used with `conditions`. Can be `true` or
 
 ### `conditions` (optional)
 
-This field is an optional object that can be used for condition-specific fields. Currently it has one group, `environment`. Below is an example `environment` condition:
-
-```json
-"conditions": {
-  "environment": {
-    "client": {
-      "allowed": true,
-    },
-    "server": {
-      "allowed": false
-    }
-  }
-}
-
-```
-
-See **format_values.md** for the list of conditions.
-
-Conditions can also be defined directly for a field.
-
-```json
-"allowed": {
-  "environment": {
-    "client": true,
-    "server": false
-  }
-}
-```
-
-// TODO: move to separate file or section?
+See "Conditions" at the end of this document.
 
 ---
 
@@ -326,7 +297,7 @@ Whether or not this dependency is allowed. Used in combination with conditions. 
 
 ##### `conditions` (optional)
 
-Follows the same format as `version.conditions`.
+See "Conditions" at the end of this document.
 
 ##### `required`
 
@@ -389,3 +360,40 @@ This field MUST be an array containing a download source of the file, stored as 
 ```
 
 If a launcher was trying to download the file, it would first try at `firsthostingsite.com`. If it was unable to download from there, it would then try from `secondhostingsite.com`.
+
+---
+
+## Conditions
+
+Conditions allow specific fields to be applied based on certain variables. Below is an example usage of conditions, using the `environment` group and `client` and `server` options.
+
+```json
+"conditions": {
+  "environment": {
+    "client": {
+      "allowed": true,
+    },
+    "server": {
+      "allowed": false
+    }
+  }
+}
+
+```
+
+See **format_values.md** for the list of conditions and groups.
+
+Conditions can also be defined directly for a field.
+
+```json
+"allowed": {
+  "environment": {
+    "client": true,
+    "server": false
+  }
+}
+```
+
+Direct-field conditions can only be used in fields which are of String, Boolean, Number, or Array types. Conditions CANNOT be used for fields which store Objects. If you wish to use conditions for Objects, use the `conditions` field.
+
+For information on how to implement conditions in a launcher, see **format_implementing.md**.
