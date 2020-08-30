@@ -14,6 +14,10 @@ Launchers will likely already have the mechanisms in place to parse Minecraft ve
 
 Launchers can then use the file with the `versionJson` relation and automatically install libraries from URLs specified in the JSON file.
 
+## Implementing `classpathLibrary`
+
+This is a library that needs to be on the Minecraft classpath. Launchers can choose to place the file marked with `primary` anywhere. An optional `versionJson` field describes how the classpath would be specified in a version JSON file.
+
 ## Implementing `runInstaller`
 
 This is a very vague method and there's no correct way to implement it. Launchers can run the file marked with the platform's current installer, `installer-(win, macos, or linux)`, or `generic-installer` if a platform-native one is not specified.
@@ -28,8 +32,10 @@ Launchers should follow these steps in order to correctly install these projects
 - Install the required dependencies to the directory according to their installation info
 - If a file with `"rel": "compressedOverrides"` exists, download it and extract the contents to the instance directory
 
+## Implementing `jarMod`
+
+The File marked with `primary` should be downloaded to a temporary location. The file should then be extracted. The contents of this file should be copied over to the Minecraft Game JAR (also extracted). Launchers may choose to automatically delete META-INF.
+
 ## Implementing `other`
 
 If an `other` installation method is found, an error should be presented to the user.
-
-`TODO: Add implementing jar mods`

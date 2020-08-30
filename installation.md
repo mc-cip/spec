@@ -30,8 +30,7 @@ The `directory` field is subject to the rules defined in **Specifying Paths**.
 
 ### `jarMod`
 
-This is a jar mod, and the contents of it must be added to the Minecraft jar file. See the Implementing Installation document. The file specified MUST be in the .zip format.
-`TODO: should other formats be supported?`
+This is a jar mod, and the contents of it must be added to the Minecraft jar file. See the Implementing Installation document. The file specified MUST be either a .zip or .jar file.
 
 ### `versionJsonInstall`
 
@@ -64,7 +63,7 @@ Files in the `compressedOverrides` zip should be in the root. For example:
 
 An unknown installation method.
 
-`TODO: what other methods should be added? what about classpath dependencies that are not specified in version.json files?`
+`TODO: what other methods should be added?`
 
 ---
 
