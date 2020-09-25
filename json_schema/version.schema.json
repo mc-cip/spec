@@ -1,7 +1,7 @@
 {
   "$id": "version.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "MCIP Metadata Format - Version",
+  "title": "MODIP Metadata Format - Version",
   "type": "object",
   "additionalProperties": false,
   "definitions": {

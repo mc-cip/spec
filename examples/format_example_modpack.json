@@ -1,7 +1,7 @@
 {
   "$schema": "../json_schema/project.schema.json",
   "_comment": [
-    "This file demonstrates an example modpack with 3 mods and overrides in the MCIP format"
+    "This file demonstrates an example modpack with 3 mods and overrides in the MODIP format"
   ],
   "schemaVersion": 1,
   "id": "111111-111111-111111-111111-111111",
@@ -39,12 +39,12 @@
     {
       "team": true,
       "id": "111111-111111-111111-111111-111111",
-      "name": "MCIP Contributors",
+      "name": "MODIP Contributors",
       "uri": "https://github.com/mc-cip",
       "members": [
         {
           "id": "111111-111111-111111-111111-111111",
-          "name": "Example MCIP Member",
+          "name": "Example MODIP Member",
           "uri": "https://example.com/example-webpage"
         }
       ]

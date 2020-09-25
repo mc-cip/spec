@@ -1,7 +1,7 @@
 {
   "$id": "project.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "MCIP Metadata Format - Project",
+  "title": "MODIP Metadata Format - Project",
   "type": "object",
   "additionalProperties": false,
   "definitions": {
@@ -38,7 +38,7 @@
     "$schema": true,
     "schemaVersion": {
       "type": "integer",
-      "description": "The version of the MCIP Metadata Format.",
+      "description": "The version of the MODIP Metadata Format.",
       "minimum": 1,
       "maximum": 1
     },

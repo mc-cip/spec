@@ -1,14 +1,14 @@
-# MCIP Format Specification
+# MODIP Format Specification
 
-This document provides detailed information on the MCIP Format.
+This document provides detailed information on the MODIP Format.
 
-The MCIP format uses JSON to store information. If providing an API that returns format-compliant information, the `application/json` Content-Type header SHOULD be provided. If stored on disk, the `.json` extension SHOULD be used.
+The MODIP format uses JSON to store information. If providing an API that returns format-compliant information, the `application/json` Content-Type header SHOULD be provided. If stored on disk, the `.json` extension SHOULD be used.
 
 A format-compliant example is provided in **examples/format_example.json**.
 
 ## Fields
 
-Fields are stored inside the JSON metadata of a Project. Fields that are optional will be marked as such. All fields are stored as a String value unless stated otherwise. Below is a complete list of all fields available for the MCIP Format, grouped into categories.
+Fields are stored inside the JSON metadata of a Project. Fields that are optional will be marked as such. All fields are stored as a String value unless stated otherwise. Below is a complete list of all fields available for the MODIP Format, grouped into categories.
 
 ## General Project Information
 
@@ -311,7 +311,7 @@ This field MUST be either an Array or String. If this field is an array, it MUST
 
 The required Minecraft Version also MUST be stored as a dependency. It's `id` value MUST be set to `minecraft`. It also MUST not contain the `required` field, as Minecraft is not an optional component.
 
-If not all information is listed inside a dependency object and it's metadata is not hosted on the same host which is serving metadata for the parent project, the `src` field may be used. This field MUST contain a URL. This URL MUST serve MCIP Format-compliant metadata about the required dependency. It MUST include the `versions` field.
+If not all information is listed inside a dependency object and it's metadata is not hosted on the same host which is serving metadata for the parent project, the `src` field may be used. This field MUST contain a URL. This URL MUST serve MODIP Format-compliant metadata about the required dependency. It MUST include the `versions` field.
 
 A dependencies implementation guide for launchers is available in **format_implementing.md**.
 
@@ -346,7 +346,7 @@ The installation method of this file. This MUST be stored as an object. The obje
 
 The installation field CAN be present for BOTH Version and File Objects, similar to `dependencies`. The installation method in the file will override the installation method in the version if present.
 
-If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MCIP format, please view **examples/format_example_fabric_loader.json**.
+If the installation field is present in the Version, it is not required in the file. If it's NOT present in the version, it MUST be present for the file. The per-version installation field exists for Frameworks to avoid unnecessary fields and to be clearer about how a version should be installed. For an example Framework in the MODIP format, please view **examples/format_example_fabric_loader.json**.
 
 ##### `downloads`
 

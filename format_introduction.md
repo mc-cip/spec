@@ -1,6 +1,6 @@
-# Introduction to the MCIP Format
+# Introduction to the MODIP Format
 
-The MCIP Format is an open format for Minecraft project metadata. A Minecraft project is a Mod, Resource/Texture Pack, World, Modpack, Modloader/Framework, or other assets related to the Minecraft: Java Edition game.
+The MODIP Format is an open format for Minecraft project metadata. A Minecraft project is a Mod, Resource/Texture Pack, World, Modpack, Modloader/Framework, or other assets related to the Minecraft: Java Edition game.
 
 The Format stores information about projects such as their description, authors, download links, and more.
 
@@ -14,7 +14,7 @@ The Format stores information about projects such as their description, authors,
 
 ## Users of the Format
 
-The MCIP format is designed to be used by anyone who works with Minecraft projects. Examples include:
+The MODIP format is designed to be used by anyone who works with Minecraft projects. Examples include:
 
 - Hosts, such as Diluv, Modrinth, and CurseForge
 - Launchers, such as MultiMC and GDLauncher

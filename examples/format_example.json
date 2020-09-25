@@ -36,12 +36,12 @@
     {
       "team": true,
       "id": "111111-111111-111111-111111-111111",
-      "name": "MCIP Contributors",
+      "name": "MODIP Contributors",
       "uri": "https://github.com/mc-cip",
       "members": [
         {
           "id": "111111-111111-111111-111111-111111",
-          "name": "Example MCIP Member",
+          "name": "Example MODIP Member",
           "uri": "https://example.com/example-webpage"
         }
       ]
@@ -92,7 +92,7 @@
           ]
         },
         {
-          "src": "https://example.com/external-mcip-metadata.json",
+          "src": "https://example.com/external-modip-metadata.json",
           "id": "example-library-mod",
           "required": true,
           "version": [

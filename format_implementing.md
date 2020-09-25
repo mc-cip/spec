@@ -1,12 +1,12 @@
 # Format Implementation Guide
 
-If you're a launcher developer, this document can help you by providing useful tips and recommended practices for implementing the MCIP Format.
+If you're a launcher developer, this document can help you by providing useful tips and recommended practices for implementing the MODIP Format.
 
 ---
 
 ## Rendering HTML
 
-The MCIP Format Specification allows the usage of HTML in certain fields, such as `description` and `changelog`. HTML is widely used and meets many of the requirements needed for a field like `description`. However, HTML can be **very dangerous**. Take caution when displaying content using HTML. It's recommended to sanitize your HTML according to the rules listed below.
+The MODIP Format Specification allows the usage of HTML in certain fields, such as `description` and `changelog`. HTML is widely used and meets many of the requirements needed for a field like `description`. However, HTML can be **very dangerous**. Take caution when displaying content using HTML. It's recommended to sanitize your HTML according to the rules listed below.
 
 ### Disallowed Tags
 
@@ -41,7 +41,7 @@ A: If for whatever reason you do not want to render HTML, then yes, the best met
 
 ## Implementing Frameworks
 
-Frameworks also exist as MCIP Format Projects. It's important for launchers to understand the Project metadata and install frameworks as needed.
+Frameworks also exist as MODIP Format Projects. It's important for launchers to understand the Project metadata and install frameworks as needed.
 
 Framework IDs MUST be prefixed with `framework-`, so launchers can tell if a project is a Framework.
 For frameworks with the installation method set to `versionJsonInstall`, launchers should read the version JSON metadata specified in a file with `rel` set to `versionJson`. An example of a modloader using `versionJsonInstall` would be Fabric.
